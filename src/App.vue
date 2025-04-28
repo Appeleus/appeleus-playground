@@ -1,14 +1,9 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
+    <img v-if="helloWorldRef.counter < 100" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img v-else src="https://i.imgflip.com/8hdb48.png?a484752">
     <div class="wrapper">
-      <HelloWorld msg="You Are Very Sigma!" />
+      <HelloWorld ref="helloWorldRef" msg="You Are Very Sigma!" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -21,6 +16,10 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
+.cat-laugh {
+  background-image: url('');
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -83,3 +82,11 @@ nav a:first-of-type {
   }
 }
 </style>
+
+<script setup>
+import { ref } from 'vue';
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
+
+const helloWorldRef = ref('');
+</script>

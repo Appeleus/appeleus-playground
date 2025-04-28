@@ -10,9 +10,10 @@
 
     <h3>
       <p> {{ counter < 100 ? "Get that count to 100 and see what happens lol" : "Here's ur reward" }} </p>
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" v-if="counter >= 100">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a>
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://plaza.one/" target="_blank" rel="noopener">Vue 3</a>. What's next?
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"
+            v-if="counter >= 100">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a>
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Vite</a> +
+          <a href="https://plaza.one/" target="_blank" rel="noopener">Vue 3</a>. What's next?
     </h3>
   </div>
 </template>
@@ -53,7 +54,7 @@ button {
 </style>
 
 <script setup>
-import { ref, defineProps, watch } from 'vue';
+import { ref, defineProps, watch, defineExpose } from 'vue';
 
 const props = defineProps({
   msg: String
@@ -64,15 +65,23 @@ const pointer = ref([]);
 const counter = ref(0);
 
 const addPointer = () => {
-  counter.value++, 
-  pointer.value.push('*');
+  counter.value++; 
+  if (counter.value > 0) {
+    pointer.value.push('*');
+  }
 };
 
 const deletePointer = () => {
   counter.value--;
   pointer.value.pop();
+
+  if (counter.value <= -100) {
+    alert('What are you doing, get back here');
+    counter.value = 0;
+  }
 };
 
-watch(() => counter.value, (newVal, oldVal) => {
-}, { deep: true });
+defineExpose({
+  counter
+})
 </script>
